@@ -1,42 +1,185 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #252525;
+  --card: #ffffff;
+  --card-foreground: #252525;
+  --popover: #ffffff;
+  --popover-foreground: #252525;
+  --primary: #343434;
+  --primary-foreground: #fcfcfc;
+  --secondary: #f8f8f8;
+  --secondary-foreground: #343434;
+  --muted: #f8f8f8;
+  --muted-foreground: #8e8e8e;
+  --accent: #f8f8f8;
+  --accent-foreground: #343434;
+  --destructive: #d63c33;
+  --destructive-foreground: #d63c33;
+  --border: #ebebeb;
+  --input: #ebebeb;
+  --ring: #b5b5b5;
+  --chart-1: #c75d3a;
+  --chart-2: #9886e0;
+  --chart-3: #867bd7;
+  --chart-4: #d49456;
+  --chart-5: #c89154;
+  --radius: 0.625rem;
+  --sidebar: #fcfcfc;
+  --sidebar-foreground: #252525;
+  --sidebar-primary: #343434;
+  --sidebar-primary-foreground: #fcfcfc;
+  --sidebar-accent: #f8f8f8;
+  --sidebar-accent-foreground: #343434;
+  --sidebar-border: #ebebeb;
+  --sidebar-ring: #b5b5b5;
+
+  /* Netflix-style streaming app custom variables */
+  --menu-background: #1a1a1a;
+  --hover: #333333;
+  --focus: #4d4d4d;
+  --primary-blue: #7f66ff;
+  --success-main: #99b34c;
+  --primary-yellow: #ccdb33;
+  --preview-body: #262626;
+  --outline-main: #b28aff;
+  --primary-button-main: #f2f2f2;
+  --primary-button-hover: #d9d9d9;
+  --primary-button-selection: #bfbfbf;
+  --disabled: #7f7f7f;
+  --surface-light: #f2f2f2;
+  --surface-yellow: #e6e68c;
+  --surface-dark: #1a1a1a;
+  --surface-error: #e6e63c;
+  --error-main: #99cc33;
+  --error-dark: #668c33;
+  --error-light: #ccdb33;
+  --text-dark: #1a1a1a;
+  --text-highlight: #e6e6e6;
+  --text-white: #fafafa;
+  --text-yellow: #ccdb33;
+  --text-secondary: #b28a8a;
+  --text-tertiary: #998c8c;
+  --text-disabled: #7f7f7f;
+  --text-placeholder: #666666;
+  --text-error: #99cc33;
+  --text-success: #99b34c;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.dark {
+  --background: #252525;
+  --foreground: #fcfcfc;
+  --card: #252525;
+  --card-foreground: #fcfcfc;
+  --popover: #252525;
+  --popover-foreground: #fcfcfc;
+  --primary: #fcfcfc;
+  --primary-foreground: #343434;
+  --secondary: #454545;
+  --secondary-foreground: #fcfcfc;
+  --muted: #454545;
+  --muted-foreground: #b5b5b5;
+  --accent: #454545;
+  --accent-foreground: #fcfcfc;
+  --destructive: #996666;
+  --destructive-foreground: #a23f3f;
+  --border: #454545;
+  --input: #454545;
+  --ring: #707070;
+  --chart-1: #8854e6;
+  --chart-2: #b2aadd;
+  --chart-3: #c89154;
+  --chart-4: #7f66ff;
+  --chart-5: #d6a23c;
+  --sidebar: #343434;
+  --sidebar-foreground: #fcfcfc;
+  --sidebar-primary: #8854e6;
+  --sidebar-primary-foreground: #fcfcfc;
+  --sidebar-accent: #454545;
+  --sidebar-accent-foreground: #fcfcfc;
+  --sidebar-border: #454545;
+  --sidebar-ring: #707070;
 }
 
-@keyframes logo-spin {
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+    outline-width: 1px;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+@keyframes fade-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
 }
 
-.card {
-  padding: 2em;
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.read-the-docs {
-  color: #888;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
