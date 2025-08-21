@@ -15,4 +15,5 @@ export default defineConfig({
       "@lib": "/src/lib",
     },
   },
+  assetsInclude: ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg"],
 });
