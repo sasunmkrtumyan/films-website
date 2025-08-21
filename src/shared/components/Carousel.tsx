@@ -9,6 +9,7 @@ import {
 } from "react";
 import { cn } from "../../lib/utils";
 import type { VideoItem } from "./ui/Button/types.video";
+import { getImageUrl } from "../../lib/imageUtils";
 
 interface CarouselProps {
   videos: VideoItem[];
@@ -97,7 +98,7 @@ export function Carousel({ videos, onVideoClick, className }: CarouselProps) {
             >
               <div className="relative">
                 <img
-                  src={`/src/assets/images/png/${video.CoverImage}`}
+                  src={getImageUrl(video.CoverImage)}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = `/placeholder.svg?height=330&width=220&query=${encodeURIComponent(

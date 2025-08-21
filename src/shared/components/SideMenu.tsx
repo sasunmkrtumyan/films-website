@@ -2,6 +2,7 @@
 
 import { useState, type FC } from "react";
 import { cn } from "../../lib/utils";
+import { getIconUrl } from "../../lib/imageUtils";
 
 interface SideMenuProps {
   className?: string;
@@ -97,7 +98,7 @@ export const SideMenu: FC<SideMenuProps> = ({ className }) => {
                       )}
                     >
                       <img
-                        src={`/src/assets/images/icons/${item.icon}.png`}
+                        src={getIconUrl(item.icon!)}
                         alt={item.label}
                         className="w-5 h-auto flex-shrink-0 transition-all duration-200 ease-out"
                       />

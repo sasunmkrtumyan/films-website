@@ -3,6 +3,7 @@
 import { useState, useEffect, type FC } from "react";
 import type { VideoItem } from "./ui/Button/types.video";
 import { Button } from "./ui/Button";
+import { getImageUrl, FeaturedTitleImage } from "../../lib/imageUtils";
 
 interface FeaturedContentProps {
   video: VideoItem;
@@ -56,7 +57,7 @@ export const FeaturedContent: FC<FeaturedContentProps> = ({
       <div
         className="absolute inset-0 max-h-[550px] bg-center-right bg-no-repeat"
         style={{
-          backgroundImage: `url(/src/assets/images/png/${CoverImage})`,
+          backgroundImage: `url(${getImageUrl(CoverImage)})`,
           backgroundSize: "cover",
           backgroundPosition: "center right",
         }}
@@ -94,7 +95,7 @@ export const FeaturedContent: FC<FeaturedContentProps> = ({
           {/* Title */}
           {Title === "The Irishman" ? (
             <img
-              src="/src/assets/images/png/FeaturedTitleImage.png"
+              src={FeaturedTitleImage}
               alt={Title}
               className="w-full h-auto max-w-2xl"
             />
