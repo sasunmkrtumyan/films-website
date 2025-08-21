@@ -23,7 +23,7 @@ export function Carousel({ videos, onVideoClick, className }: CarouselProps) {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const displayVideos = videos.slice(0, 8);
+  const displayVideos = videos;
 
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     if (!trackRef.current) return;
@@ -65,7 +65,12 @@ export function Carousel({ videos, onVideoClick, className }: CarouselProps) {
   };
 
   return (
-    <div className={cn("absolute bottom-0 left-0 right-0 p-6", className)}>
+    <div
+      className={cn(
+        "w-screen overflow-auto bottom-0 left-0 right-0 p-6",
+        className
+      )}
+    >
       <h2 className="text-[color:var(--text-white)] text-2xl font-bold mb-6 ml-24">
         Trending Now
       </h2>
@@ -77,7 +82,7 @@ export function Carousel({ videos, onVideoClick, className }: CarouselProps) {
       >
         <div
           ref={trackRef}
-          className="flex gap-3 cursor-grab select-none overflow-x-auto scrollbar-hide"
+          className="flex gap-3 cursor-grab select-none bg-black overflow-x-auto scrollbar-hide"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -87,7 +92,7 @@ export function Carousel({ videos, onVideoClick, className }: CarouselProps) {
           {displayVideos.map((video) => (
             <div
               key={video.Id}
-              className="flex-shrink-0 w-[calc((100vw-12rem)/8-0.75rem)] min-w-[180px] max-w-[220px] group cursor-pointer transition-transform duration-200"
+              className="flex-shrink-0 w-[calc((100vw-12rem)/8-0.75rem)] min-w-[150px] group cursor-pointer transition-transform duration-200"
               onClick={(e) => handleVideoClick(video, e)}
             >
               <div className="relative">
@@ -100,7 +105,7 @@ export function Carousel({ videos, onVideoClick, className }: CarouselProps) {
                     )}`;
                   }}
                   alt={video.Title}
-                  className="w-full h-[250px] object-cover transition-transform duration-300"
+                  className="w-full max-h-[200px] object-cover transition-transform duration-300"
                   loading="lazy"
                   draggable={false}
                 />

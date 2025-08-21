@@ -30,11 +30,13 @@ const HomePage: FC = () => {
   return (
     <div className="min-h-screen w-full bg-black ">
       <SideMenu />
-      <FeaturedContent video={featuredVideo as VideoItem} />
-      <Carousel
-        videos={trendingVideos as VideoItem[]}
-        onVideoClick={handleVideoClick}
-      />
+      <div className="flex flex-col">
+        <FeaturedContent video={featuredVideo as VideoItem} />
+        <Carousel
+          videos={trendingVideos as VideoItem[]}
+          onVideoClick={handleVideoClick}
+        />
+      </div>
     </div>
   );
 };

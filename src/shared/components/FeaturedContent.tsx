@@ -13,42 +13,34 @@ export const FeaturedContent: FC<FeaturedContentProps> = ({
   video,
   className = "",
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  console.log("isPlaying: ", isPlaying);
-  console.log(video);
   const [showVideo, setShowVideo] = useState(false);
 
   const {
     Category,
     CoverImage,
-    // Date,
     Description,
     Duration,
     Id,
     MpaRating,
     ReleaseYear,
     Title,
-    // TitleImage,
-    // isFeatured,
-    // isTrending,
-    // thumbnail,
     VideoUrl,
   } = video;
-  console.log("VideoUrl: ", VideoUrl);
 
   useEffect(() => {
+    console.log("Video data:", { Id, VideoUrl, Title }); // Debug log
+
     // Reset video state when video changes
-    setIsPlaying(false);
     setShowVideo(false);
 
     // Start video after 2 seconds
     const timer = setTimeout(() => {
+      console.log("Attempting to show video:", VideoUrl); // Debug log
       setShowVideo(true);
-      setIsPlaying(true);
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [Id]);
+  }, [Id, VideoUrl]);
 
   const formatDuration = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
@@ -57,47 +49,60 @@ export const FeaturedContent: FC<FeaturedContentProps> = ({
   };
 
   return (
-    <div className={`w-full h-screen ${className}`}>
+    <div
+      className={`relative w-full h-screen bg-black max-h-[500px] ${className}`}
+    >
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 max-h-[550px] bg-center-right bg-no-repeat"
         style={{
-          backgroundImage: `url(src/assets/images/png/${CoverImage})`,
+          backgroundImage: `url(/src/assets/images/png/${CoverImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center right",
         }}
       />
 
       {/* Background Video Overlay */}
-      {showVideo && (
-        <video
-          className="absolute inset-0 w-full h-full object-cover opacity-80"
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          controls={false}
-          src={VideoUrl}
-        />
+      {showVideo && VideoUrl && (
+        <>
+          <div className="absolute inset-0 w-full h-full">
+            <iframe
+              src={`${VideoUrl}?autoplay=1&mute=1`}
+              className="w-full h-full"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              title={Title}
+            />
+          </div>
+        </>
       )}
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <div
+        className="absolute w-full inset-0 bg-gradient-to-r from-black/100 via-black/80 to-transparent"
+        style={{ zIndex: 2 }}
+      />
 
       {/* Content */}
-      <div className="absolute pb-54 inset-0 flex items-center">
-        <div className="max-w-2xl ml-24 space-y-6">
+      <div className="absolute inset-0 flex items-center" style={{ zIndex: 3 }}>
+        <div className="max-w-2xl ml-24 space-y-4">
           {/* Category */}
-          <div className="text-[color:var(--text-secondary)] text-sm font-medium tracking-wider uppercase">
+          <div className="text-[#858688] text-base font-medium tracking-wider uppercase">
             {Category}
           </div>
 
           {/* Title */}
-          <h1 className="text-6xl font-bold text-[color:var(--text-white)] leading-tight">
-            {Title}
-          </h1>
+          {Title === "The Irishman" ? (
+            <img
+              src="/src/assets/images/png/FeaturedTitleImage.png"
+              alt={Title}
+              className="w-full h-auto max-w-2xl"
+            />
+          ) : (
+            <h1 className="text-6xl font-bold text-[color:var(--text-white)] leading-tight">
+              {Title}
+            </h1>
+          )}
 
           {/* Metadata */}
           <div className="flex items-center text-xl gap-4 text-[color:var(--text-white)]">
@@ -117,14 +122,17 @@ export const FeaturedContent: FC<FeaturedContentProps> = ({
           <div className="flex items-center gap-4 pt-4">
             <Button
               size="lg"
-              className="bg-[color:var(--primary-button-main)] hover:bg-[color:var(--primary-button-hover)] text-[color:var(--text-dark)] font-semibold px-8 py-3 rounded-md transition-colors"
+              className="!bg-white hover:bg-gray-100 !text-black !text-lg font-semibold !px-10 !py-5 !rounded-full transition-colors flex items-center gap-2"
             >
+              <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
               Play
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="bg-[color:var(--hover)]/60 hover:bg-[color:var(--hover)]/80 border-[color:var(--text-secondary)]/30 text-[color:var(--text-white)] font-semibold px-8 py-3 rounded-md transition-colors"
+              className="!bg-[#2024DE] !text-lg !hover:bg-[#2024DE] border-gray-500/50 text-white hover:!text-white font-semibold !px-10 !py-5 !rounded-full transition-colors"
             >
               More Info
             </Button>

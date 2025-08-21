@@ -18,7 +18,7 @@ interface SecondaryItem {
 }
 
 export const SideMenu: FC<SideMenuProps> = ({ className }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
 
   const menuItems: MenuItem[] = [
     { icon: "search", label: "Search", active: false },
@@ -36,90 +36,109 @@ export const SideMenu: FC<SideMenuProps> = ({ className }) => {
   ];
 
   return (
-    <div
-      className={cn(
-        "fixed left-0 top-0 h-screen z-50 transition-all duration-300 ease-out",
-        isExpanded ? "w-80" : "w-21",
-        className
-      )}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-    >
+    <>
+      {/* Main Sidebar */}
       <div
         className={cn(
-          "h-full transition-all duration-300 ease-out",
-          isExpanded
-            ? "bg-[color:var(--menu-background)]/90 backdrop-blur-sm"
-            : "bg-transparent"
+          "fixed left-0 top-0 h-screen z-50 transition-all duration-200 ease-out",
+          isOpened ? "w-80" : "w-21",
+          className
         )}
+        onMouseEnter={() => setIsOpened(true)}
+        onMouseLeave={() => setIsOpened(false)}
       >
-        <div className="flex flex-col h-full">
-          {/* User Profile */}
-          <div className="">
-            {isExpanded && (
-              <div className="flex items-center gap-3 mb-8 opacity-0 animate-fade-in">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-white font-semibold text-sm">D</span>
-                </div>
-                <span className="text-[color:var(--text-white)] font-medium">
-                  Daniel
-                </span>
+        <div
+          className={cn(
+            "h-full transition-all duration-300 ease-out bg-black/90 backdrop-blur-sm"
+          )}
+        >
+          {/* User Profile - Fixed positioning */}
+          <div className="pt-20 pl-4 h-20 flex items-center">
+            <div
+              className={cn(
+                "flex items-center transition-all duration-200 ease-out",
+                isOpened ? "gap-3 opacity-100" : "gap-0 opacity-0"
+              )}
+            >
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-semibold text-sm">D</span>
               </div>
-            )}
+              <span
+                className={cn(
+                  "text-[color:var(--text-white)] font-medium whitespace-nowrap transition-all duration-200 ease-out",
+                  isOpened
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-4"
+                )}
+              >
+                Daniel
+              </span>
+            </div>
           </div>
 
-          {/* Main Menu Items */}
-          <nav className="flex-1 px-2">
-            <ul className="space-y-1">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <div
-                    className={cn(
-                      "w-full flex cursor-pointer items-center transition-all duration-300",
-                      isExpanded
-                        ? "gap-4 p-3 rounded-lg"
-                        : "justify-center p-4 rounded-full",
-                      "hover:bg-[color:var(--hover)]/50",
-                      "focus:outline-none focus:ring-2 focus:ring-[color:var(--outline-main)]",
-                      item.active
-                        ? isExpanded
+          <div className="flex flex-col h-full">
+            {/* Main Menu Items - Consistent spacing */}
+            <nav className="flex-1 px-2 mt-8">
+              <ul className="space-y-2">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    <div
+                      className={cn(
+                        "w-full flex cursor-pointer h-[65px] items-center transition-all duration-200 ease-out",
+                        "h-14",
+                        isOpened
+                          ? "gap-4 px-3 rounded-lg justify-start"
+                          : "justify-center rounded-full",
+                        "hover:bg-[color:var(--hover)]/50",
+                        "focus:outline-none focus:ring-2 focus:ring-[color:var(--outline-main)]",
+                        item.active
                           ? "bg-[#232A3F] text-white"
-                          : "bg-[#232A3F] text-white"
-                        : "text-white hover:text-white"
-                    )}
-                  >
-                    <img
-                      src={`/src/assets/images/icons/${item.icon}.png`}
-                      alt={item.label}
-                      className={cn("transition-all duration-200 w-6 h-auto")}
-                    />
-                    {isExpanded && (
-                      <span className="font-medium text-base whitespace-nowrap overflow-hidden transition-opacity duration-300">
+                          : "text-white hover:text-white"
+                      )}
+                    >
+                      <img
+                        src={`/src/assets/images/icons/${item.icon}.png`}
+                        alt={item.label}
+                        className="w-5 h-auto flex-shrink-0 transition-all duration-200 ease-out"
+                      />
+                      <span
+                        className={cn(
+                          "font-medium text-xl whitespace-nowrap transition-all duration-200 ease-out",
+                          isOpened
+                            ? "opacity-100 translate-x-0 max-w-none"
+                            : "opacity-0 -translate-x-4 max-w-0 overflow-hidden"
+                        )}
+                      >
                         {item.label}
                       </span>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </nav>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          {/* Secondary Items */}
-          {isExpanded && (
-            <div className="px-2 pb-4 border-t border-[color:var(--hover)]/30 mt-4 pt-4">
-              <ul className="space-y-1">
+            {/* Secondary Items */}
+            <div
+              className={cn(
+                "px-2 pb-16 border-t border-[color:var(--hover)]/30 mt-4 transition-all duration-200 ease-out",
+                isOpened
+                  ? "opacity-100 translate-y-0 max-h-96"
+                  : "opacity-0 translate-y-4 max-h-0 overflow-hidden"
+              )}
+            >
+              <ul className="space-y-1 pb-10">
                 {secondaryItems.map((item, index) => (
                   <li key={index}>
-                    <button className="w-full text-left p-3 rounded-lg text-[color:var(--text-tertiary)] hover:text-[color:var(--text-white)] hover:bg-[color:var(--hover)]/30 text-sm font-medium transition-all duration-200">
+                    <div className="w-full cursor-pointer text-left p-3 h-8 flex items-center rounded-lg text-[#858688] hover:text-[color:var(--text-white)] text-lg font-medium transition-all duration-200 ease-out">
                       {item.label}
-                    </button>
+                    </div>
                   </li>
                 ))}
               </ul>
             </div>
-          )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
